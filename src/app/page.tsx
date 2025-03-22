@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FaHome, FaTasks, FaClock, FaUsers, FaBook, FaCog } from "react-icons/fa";
+import { FaHome, FaTasks, FaClock, FaUsers, FaBook, FaCog, FaPlus, FaTrash } from "react-icons/fa";
 
 export default function Dashboard() {
   return (
@@ -48,17 +48,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Task for the Day */}
-          <div className="bg-white p-4 rounded-lg shadow">
-            <h3 className="font-semibold text-lg text-blue-700 mb-2">Task for the Day</h3>
-            <TaskTable />
-          </div>
 
-          {/* Today Tracked Task */}
-          <div className="bg-white p-4 rounded-lg shadow">
-            <h3 className="font-semibold text-lg text-blue-700 mb-2">Today Tracked Task</h3>
-            <TaskTable />
-          </div>
         </div>
       </div>
     </div>
@@ -97,17 +87,29 @@ const TaskTable: React.FC = () => (
   <table className="w-full text-left">
     <thead>
       <tr className="border-b text-blue-700">
-        <th className="p-2">Task Name</th>
         <th className="p-2">Project Name</th>
-        <th className="p-2">Work Logs</th>
+        <th className="p-2">Completion Progress</th>
+        <th className="p-2">Date Start</th>
+        <th className="p-2">Date End</th>
       </tr>
     </thead>
     <tbody>
       {[1, 2, 3, 4, 5].map((i) => (
         <tr key={i} className="border-b hover:bg-blue-50">
-          <td className="p-2">Task {i}</td>
           <td className="p-2">Project {i}</td>
-          <td className="p-2">06h 14m / 00h 00m</td>
+          <td className="p-2 flex justify-between items-center">
+            Project {i}
+            <div className="flex space-x-2">
+            <button className="relative text-green-600 hover:text-green-800 group">
+                <FaPlus />
+                <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-full bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Add Task
+                </span>
+              </button>
+
+            </div>
+          </td>
+        
         </tr>
       ))}
     </tbody>
