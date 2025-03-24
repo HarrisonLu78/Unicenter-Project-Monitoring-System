@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FaHome, FaTasks, FaClock, FaUsers, FaBook, FaCog, FaPlus, FaTrash } from "react-icons/fa";
 
 export default function Dashboard() {
@@ -12,12 +15,12 @@ export default function Dashboard() {
         </div>
         <h2 className="text-xl font-bold mb-6 text-center">Dashboard</h2>
         <nav className="space-y-4">
-          <NavItem icon={<FaHome />} label="Dashboard" />
-          <NavItem icon={<FaTasks />} label="Project" />
-          <NavItem icon={<FaClock />} label="My Tasks" />
-          <NavItem icon={<FaUsers />} label="Attendance" />
-          <NavItem icon={<FaBook />} label="Work Diary" />
-          <NavItem icon={<FaCog />} label="Settings" />
+          <NavItem icon={<FaHome />} label="Dashboard" href="/" />
+          <NavItem icon={<FaTasks />} label="Project" href="/project.tsx" />
+          <NavItem icon={<FaClock />} label="My Tasks" href="/tasks" />
+          <NavItem icon={<FaUsers />} label="Attendance" href="/attendance" />
+          <NavItem icon={<FaBook />} label="Work Diary" href="/diary" />
+          <NavItem icon={<FaCog />} label="Settings" href="/settings" />
         </nav>
       </aside>
 
@@ -47,8 +50,6 @@ export default function Dashboard() {
               📈 Chart Placeholder
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
@@ -59,14 +60,21 @@ export default function Dashboard() {
 type NavItemProps = {
   icon: React.ReactNode;
   label: string;
+  href: string;
 };
 
-const NavItem: React.FC<NavItemProps> = ({ icon, label }) => (
-  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 cursor-pointer">
-    <span className="text-lg text-white">{icon}</span>
-    <span className="font-medium">{label}</span>
-  </div>
-);
+const NavItem: React.FC<NavItemProps> = ({ icon, label, href }) => {
+  const router = useRouter();
+  return (
+    <div
+      className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 cursor-pointer"
+      onClick={() => router.push(href)}
+    >
+      <span className="text-lg text-white">{icon}</span>
+      <span className="font-medium">{label}</span>
+    </div>
+  );
+};
 
 // ✅ Statistics Card
 type StatCardProps = {
@@ -109,7 +117,6 @@ const TaskTable: React.FC = () => (
 
             </div>
           </td>
-        
         </tr>
       ))}
     </tbody>
